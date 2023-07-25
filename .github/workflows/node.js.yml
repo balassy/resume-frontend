@@ -42,7 +42,7 @@ jobs:
       uses: aws-actions/configure-aws-credentials@v2
       with:
         role-to-assume: ${{ secrets.AWS_UPLOAD_ROLE_ARN }}
-        role-session-name: Resume upload session
+        role-session-name: ResumeUploadSession
         aws-region: ${{ secrets.AWS_REGION }}
     - name:  Upload artifacts to S3
       run: |
