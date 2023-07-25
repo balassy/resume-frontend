@@ -1,0 +1,12 @@
+{
+  "name": "resume-frontend",
+  "version": "1.0.0",
+  "description": "My personal homepage",
+  "author": "György Balássy",
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": {
+    "build": "mkdir dist && cp ./src/* dist",
+    "test": "echo Tests coming soon..."
+  }
+}
