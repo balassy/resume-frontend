@@ -41,4 +41,8 @@ jobs:
     - name:  Upload artifacts to S3
       run: aws s3 sync ./dist s3://${{ secrets.AWS_BUCKET_NAME }}/
     - name: Invalidate CloudFront cache
-      run: aws cloudfront create-invalidation --distribution-id ${{ secrets.AWS_CLOUDFRONT_DISTRIBUTION_ID }} --paths '/*'
+      run: |
+        CLOUDFRONT_INVALIDATION_ID=$(aws cloudfront create-invalidation --distribution-id ${{ secrets.AWS_CLOUDFRONT_DISTRIBUTION_ID }} --paths '/*' --query Invalidation.Id)
+        echo "CLOUDFRONT_INVALIDATION_ID=$CLOUDFRONT_INVALIDATION_ID" >> $GITHUB_ENV
+    - name: Wait until CloudFront invalidation completed
+      run: aws cloudfront wait invalidation-completed --distribution-id ${{ secrets.AWS_CLOUDFRONT_DISTRIBUTION_ID }} --id ${{ env.CLOUDFRONT_INVALIDATION_ID }}
