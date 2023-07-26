@@ -23,6 +23,8 @@ jobs:
       run: npm run build
     - name: Test
       run: npm test
+    - name: Create version file
+      run: date > dist/version.txt
     - name: Archive artifacts
       uses: actions/upload-artifact@v3
       with:
