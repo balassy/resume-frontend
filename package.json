@@ -5,8 +5,17 @@
   "author": "György Balássy",
   "license": "MIT",
   "main": "index.js",
+  "type": "module",  
   "scripts": {
-    "build": "mkdir dist && cp ./src/* dist",
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
     "test": "echo Tests coming soon..."
+  },
+  "dependencies": {
+    "astro": "^2.9.3"
   }
+
 }
