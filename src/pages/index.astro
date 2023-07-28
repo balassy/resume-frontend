@@ -39,6 +39,15 @@ const projects = (await getCollection('work'))
 						<Pill><Icon icon="microphone-stage" size="1.33em" /> Speaker</Pill>
 						<Pill><Icon icon="pencil-line" size="1.33em" /> Writer</Pill>
 					</div>
+          <p class="definition">
+            <span class="term">mak·er</span> 
+            <span class="pronunciation">/ˈmeɪkər/ </span>            
+            <span class="speech">n.</span> 
+            <br/>
+            <span class="meaning">
+              a person who learns from what they do, especially in areas that involve teamwork, fun and technology. In general, this is achieved through sharing knowledge. A maker is someone who is used to solving all sorts of problems and enjoys doing so. 
+            </span>
+          </p>
 				</Hero>
 
 				<img
@@ -125,6 +134,26 @@ const projects = (await getCollection('work'))
 	.roles {
 		display: none;
 	}
+
+  .definition {
+    font-size: var(--text-base);
+    color: var(--gray-500);
+    margin-top: 60px;
+  }
+
+  .definition .term {
+    font-weight: bold;
+  }
+
+  .definition .pronunciation {
+    display: inline-block;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  .definition .speech {
+    font-style: italic;
+  }
 
 	.hero img {
 		aspect-ratio: 5 / 4;
