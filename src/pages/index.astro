@@ -31,7 +31,7 @@ const projects = (await getCollection('work'))
 			<header class="hero">
 				<Hero
 					title="Hello, my name is György Balássy"
-					tagline="Dad. Husband. Maker."
+					tagline="I'm a maker."
 					align="start"
 				>
 					<div class="roles">
@@ -142,7 +142,7 @@ const projects = (await getCollection('work'))
 
 		.hero img {
 			aspect-ratio: 3 / 4;
-			border-radius: 4.5rem;
+			border-radius: 3rem;
 			object-fit: cover;
 		}
 	}
@@ -159,6 +159,7 @@ const projects = (await getCollection('work'))
 	}
 
 	.with-background::before {
+
 		content: '';
 		position: absolute;
 		pointer-events: none;
