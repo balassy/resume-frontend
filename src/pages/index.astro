@@ -81,19 +81,27 @@ const projects = (await getCollection('work'))
 
 			<section class="section with-background bg-variant">
 				<header class="section-header stack gap-2 lg:gap-4">
-					<h3>Mentions</h3>
-					<p>
-						I have been fortunate enough to recieve praise for my work in several publications. Take
-						a look below to learn more.
-					</p>
+					<h3>Certifications</h3>
 				</header>
 
 				<div class="gallery">
 					<Grid variant="small">
 						{
-							['Medium', 'BuzzFeed', 'The Next Web', 'awwwards.', 'TechCrunch'].map((brand) => (
+							[ 
+                { src: '/assets/certs/ms-azure-fundamentals.png', caption: 'Microsoft Certified: Azure Fundamentals' },
+                { src: '/assets/certs/aws-solutions-architect-fundamentals.png', caption: 'AWS Certified: Solutions Architect - Associate' },
+                { src: '/assets/certs/ceh.png', caption: 'Certified Ethical Hacker (CEH)' },
+                { src: '/assets/certs/ecsp.gif', caption: 'Certified Secure Programmer: .NET (ECSP)' },
+                { src: '/assets/certs/mcsd.png', caption: 'Microsoft Certified Solutions Developer (MCSD)' },
+                { src: '/assets/certs/mcsa.svg', caption: 'Microsoft Certified Solutions Associate (MCSA)' },
+                { src: '/assets/certs/mcts.gif', caption: 'Microsoft Certified Technology Specialist (MCTS)' },
+                { src: '/assets/certs/mcp.gif', caption: 'Microsoft Certified Professional (MCP)' },
+              ].map((cert) => (
 								<li class="mention-card">
-									<p>{brand}</p>
+                  <figure>
+                    <img src={cert.src} />
+									  <figcaption>{cert.caption}</figcaption>
+                  </figure>
 								</li>
 							))
 						}
@@ -221,10 +229,10 @@ const projects = (await getCollection('work'))
 
 	.mention-card {
 		display: flex;
-		height: 7rem;
 		justify-content: center;
 		align-items: center;
 		text-align: center;
+    padding: 1rem;
 		border: 1px solid var(--gray-800);
 		border-radius: 1.5rem;
 		color: var(--gray-300);
@@ -232,10 +240,14 @@ const projects = (await getCollection('work'))
 		box-shadow: var(--shadow-sm);
 	}
 
+  .mention-card img {
+    width: 7rem;
+  }
+
 	@media (min-width: 50em) {
 		.mention-card {
 			border-radius: 1.5rem;
-			height: 9.5rem;
-		}
+
+  	}
 	}
 </style>
