@@ -17,6 +17,7 @@ permissions:
 jobs:
   call-build:
     uses: balassy/resume-frontend/.github/workflows/build.yml@main
+    secrets: inherit
 
   deploy:
     needs: call-build
