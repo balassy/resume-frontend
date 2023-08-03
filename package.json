@@ -13,8 +13,7 @@
     "preview": "astro preview",
     "astro": "astro",
     "test": "echo Tests coming soon...",
-    "test:ui": "cypress run --config-file cypress.config.local.ts",
-    "test:ui:ci": "cypress run --config-file cypress.config.prod.ts"
+    "test:ui": "cypress run --config-file cypress.config.local.ts"
   },
   "dependencies": {
     "astro": "^2.9.3"
