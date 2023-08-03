@@ -44,17 +44,17 @@ jobs:
       with:
         name: Build output
         path: dist/
-    - name: Archive UI test screenshot artifacts
+    - name: Archive local UI test screenshot artifacts
       uses: actions/upload-artifact@v3
       if: ${{ failure() }}
       with:
-        name: UI test screenshots
+        name: Local UI test screenshots
         path: cypress/screenshots
         if-no-files-found: ignore
-    - name: Archive UI test video artifacts
+    - name: Archive local UI test video artifacts
       uses: actions/upload-artifact@v3
       if: ${{ failure() }}
       with:
-        name: UI test videos
+        name: Local UI test videos
         path: cypress/videos
         if-no-files-found: ignore
