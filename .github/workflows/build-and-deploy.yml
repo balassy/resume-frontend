@@ -50,7 +50,7 @@ jobs:
     - name: Run UI tests remotely
       uses: cypress-io/github-action@v5
       with:
-        install: false
+        install: true
         config-file: cypress.config.prod.ts
     - name: Archive remote UI test screenshot artifacts
       uses: actions/upload-artifact@v3
