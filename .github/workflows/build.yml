@@ -32,6 +32,8 @@ jobs:
       run: |
         date > dist/version.txt
         cat dist/version.txt
+        echo "## Version :rocket:" >> $GITHUB_STEP_SUMMARY
+        cat dist/version.txt >> $GITHUB_STEP_SUMMARY
     - name: Run UI tests locally
       uses: cypress-io/github-action@v5
       with:
