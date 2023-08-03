@@ -32,8 +32,29 @@ jobs:
       run: |
         date > dist/version.txt
         cat dist/version.txt
-    - name: Archive artifacts
+    - name: Run UI tests locally
+      uses: cypress-io/github-action@v5
+      with:
+        install: false
+        start: npm start
+        wait-on: 'http://ip6-localhost:3000'
+        config-file: cypress.config.local.ts
+    - name: Archive build artifacts
       uses: actions/upload-artifact@v3
       with:
         name: Build output
         path: dist/
+    - name: Archive local UI test screenshot artifacts
+      uses: actions/upload-artifact@v3
+      if: ${{ failure() }}
+      with:
+        name: Local UI test screenshots
+        path: cypress/screenshots
+        if-no-files-found: ignore
+    - name: Archive local UI test video artifacts
+      uses: actions/upload-artifact@v3
+      if: ${{ failure() }}
+      with:
+        name: Local UI test videos
+        path: cypress/videos
+        if-no-files-found: ignore

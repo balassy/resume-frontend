@@ -47,3 +47,22 @@ jobs:
         echo "CLOUDFRONT_INVALIDATION_ID=$CLOUDFRONT_INVALIDATION_ID" >> $GITHUB_ENV
     - name: Wait until CloudFront invalidation completed
       run: aws cloudfront wait invalidation-completed --distribution-id ${{ secrets.AWS_CLOUDFRONT_DISTRIBUTION_ID }} --id ${{ env.CLOUDFRONT_INVALIDATION_ID }}
+    - name: Run UI tests remotely
+      uses: cypress-io/github-action@v5
+      with:
+        install: false
+        config-file: cypress.config.prod.ts
+    - name: Archive remote UI test screenshot artifacts
+      uses: actions/upload-artifact@v3
+      if: ${{ failure() }}
+      with:
+        name: Remote UI test screenshots
+        path: cypress/screenshots
+        if-no-files-found: ignore
+    - name: Archive remote UI test video artifacts
+      uses: actions/upload-artifact@v3
+      if: ${{ failure() }}
+      with:
+        name: Remote UI test videos
+        path: cypress/videos
+        if-no-files-found: ignore

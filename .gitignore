@@ -23,5 +23,8 @@ out
 # Build output
 dist
 
-# Generated types
+# Astro generated types
 .astro/
+
+# Cypress generated files
+cypress/videos
