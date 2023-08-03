@@ -46,14 +46,14 @@ jobs:
         path: dist/
     - name: Archive UI test screenshot artifacts
       uses: actions/upload-artifact@v3
-      # if: ${{ failure() }}
+      if: ${{ failure() }}
       with:
         name: UI test screenshots
         path: cypress/screenshots
         if-no-files-found: ignore
     - name: Archive UI test video artifacts
       uses: actions/upload-artifact@v3
-      # if: ${{ failure() }}
+      if: ${{ failure() }}
       with:
         name: UI test videos
         path: cypress/videos
