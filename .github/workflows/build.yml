@@ -39,7 +39,7 @@ jobs:
       with:
         install: false
         start: npm start
-        wait-on: 'http://ip6-localhost:3000'
+        wait-on: 'http://ip6-localhost:4321'
         config-file: cypress.config.local.ts
     - name: Archive build artifacts
       uses: actions/upload-artifact@v3
