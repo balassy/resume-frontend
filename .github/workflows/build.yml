@@ -35,7 +35,7 @@ jobs:
         echo "## Version :rocket:" >> $GITHUB_STEP_SUMMARY
         cat dist/version.txt >> $GITHUB_STEP_SUMMARY
     - name: Run UI tests locally
-      uses: cypress-io/github-action@v5
+      uses: cypress-io/github-action@v6
       with:
         install: false
         start: npm start
