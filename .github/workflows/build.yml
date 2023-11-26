@@ -35,11 +35,11 @@ jobs:
         echo "## Version :rocket:" >> $GITHUB_STEP_SUMMARY
         cat dist/version.txt >> $GITHUB_STEP_SUMMARY
     - name: Run UI tests locally
-      uses: cypress-io/github-action@v5
+      uses: cypress-io/github-action@v6
       with:
         install: false
         start: npm start
-        wait-on: 'http://ip6-localhost:3000'
+        wait-on: 'http://ip6-localhost:4321'
         config-file: cypress.config.local.ts
     - name: Archive build artifacts
       uses: actions/upload-artifact@v3
