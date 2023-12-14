@@ -16,6 +16,7 @@
 	--gray-999_40: hsla(var(--gray-999-basis), 0.4);
 	--gray-999: #ffffff;
 
+  /* Colors from the Abstract Blue color palette: https://colorswall.com/palette/1031 */
 	--accent-light: #187bcd;
 	--accent-regular: #1167b1;
 	--accent-dark: #03254c;
