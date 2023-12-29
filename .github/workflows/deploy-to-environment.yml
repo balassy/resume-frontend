@@ -2,7 +2,7 @@ name: Continuous Integration - Deploy
 
 on:
   push:
-    branches-ignore: main
+    branches: [ "main" ]
   workflow_call:
     inputs:
       target_environment:
