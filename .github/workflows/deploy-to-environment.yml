@@ -1,0 +1,52 @@
+name: Continuous Integration - Deploy
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_call:
+    inputs:
+      target_environment:
+        description: 'The environment where the content should be deployed to.'
+        required: true
+        type: string
+
+# Secrets for Staging and Production environments:
+#   AWS_REGION: "us-east-1"
+#   AWS_BUCKET_NAME: "example-bucket"
+#   AWS_UPLOAD_ROLE_ARN: "arn:aws:iam::1234567890:role/example-role"
+#   AWS_CLOUDFRONT_DISTRIBUTION_ID: "E1C4SMKLBYI8C9"
+
+permissions:
+  id-token: write   # This is required for requesting the JWT for AWS Actions
+  contents: read    # This is required for actions/checkout for AWS Actions
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.target_environment }}
+
+    steps:
+    - name: Download build artifacts
+      uses: actions/download-artifact@v3
+      with:
+        name: Build output
+        path: dist
+    - name: View build artifacts
+      run: ls -R
+      working-directory: dist
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v2
+      with:
+        role-to-assume: ${{ secrets.AWS_UPLOAD_ROLE_ARN }}
+        role-session-name: ResumeUploadSession
+        aws-region: ${{ secrets.AWS_REGION }}
+    - name: View AWS credentials
+      run: aws sts get-caller-identity      
+    - name:  Upload artifacts to S3
+      run: aws s3 sync ./dist s3://${{ secrets.AWS_BUCKET_NAME }}/
+    - name: Invalidate CloudFront cache
+      run: |
+        CLOUDFRONT_INVALIDATION_ID=$(aws cloudfront create-invalidation --distribution-id ${{ secrets.AWS_CLOUDFRONT_DISTRIBUTION_ID }} --paths '/*' --query Invalidation.Id)
+        echo "CLOUDFRONT_INVALIDATION_ID=$CLOUDFRONT_INVALIDATION_ID" >> $GITHUB_ENV
+    - name: Wait until CloudFront invalidation completed
+      run: aws cloudfront wait invalidation-completed --distribution-id ${{ secrets.AWS_CLOUDFRONT_DISTRIBUTION_ID }} --id ${{ env.CLOUDFRONT_INVALIDATION_ID }}

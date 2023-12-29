@@ -19,64 +19,16 @@ jobs:
     uses: balassy/resume-frontend/.github/workflows/build.yml@main
     secrets: inherit
 
-  deploy-to-staging:
+  call-deploy-to-staging:
+    uses: balassy/resume-frontend/.github/workflows/deploy-to-environment.yml@main
+    secrets: inherit
     needs: call-build
-    runs-on: ubuntu-latest
-    environment: Staging
+    with:
+      target_environment: Staging
 
-    steps:
-    - name: Download build artifacts
-      uses: actions/download-artifact@v3
-      with:
-        name: Build output
-        path: dist
-    - name: View build artifacts
-      run: ls -R
-      working-directory: dist
-    - name: Configure AWS credentials for Staging
-      uses: aws-actions/configure-aws-credentials@v2
-      with:
-        role-to-assume: ${{ secrets.AWS_UPLOAD_ROLE_ARN }}
-        role-session-name: ResumeUploadSession
-        aws-region: ${{ secrets.AWS_REGION }}
-    - name: View AWS credentials
-      run: aws sts get-caller-identity      
-    - name:  Upload artifacts to S3
-      run: aws s3 sync ./dist s3://${{ secrets.AWS_BUCKET_NAME }}/
-    - name: Invalidate CloudFront cache
-      run: |
-        CLOUDFRONT_INVALIDATION_ID=$(aws cloudfront create-invalidation --distribution-id ${{ secrets.AWS_CLOUDFRONT_DISTRIBUTION_ID }} --paths '/*' --query Invalidation.Id)
-        echo "CLOUDFRONT_INVALIDATION_ID=$CLOUDFRONT_INVALIDATION_ID" >> $GITHUB_ENV
-    - name: Wait until CloudFront invalidation completed
-      run: aws cloudfront wait invalidation-completed --distribution-id ${{ secrets.AWS_CLOUDFRONT_DISTRIBUTION_ID }} --id ${{ env.CLOUDFRONT_INVALIDATION_ID }}
-
-  deploy-to-production:
-    needs: deploy-to-staging
-    runs-on: ubuntu-latest
-    environment: Production
-
-    steps:
-    - name: Download build artifacts
-      uses: actions/download-artifact@v3
-      with:
-        name: Build output
-        path: dist
-    - name: View build artifacts
-      run: ls -R
-      working-directory: dist
-    - name: Configure AWS credentials for Production
-      uses: aws-actions/configure-aws-credentials@v2
-      with:
-        role-to-assume: ${{ secrets.AWS_UPLOAD_ROLE_ARN }}
-        role-session-name: ResumeUploadSession
-        aws-region: ${{ secrets.AWS_REGION }}
-    - name: View AWS credentials
-      run: aws sts get-caller-identity      
-    - name:  Upload artifacts to S3
-      run: aws s3 sync ./dist s3://${{ secrets.AWS_BUCKET_NAME }}/
-    - name: Invalidate CloudFront cache
-      run: |
-        CLOUDFRONT_INVALIDATION_ID=$(aws cloudfront create-invalidation --distribution-id ${{ secrets.AWS_CLOUDFRONT_DISTRIBUTION_ID }} --paths '/*' --query Invalidation.Id)
-        echo "CLOUDFRONT_INVALIDATION_ID=$CLOUDFRONT_INVALIDATION_ID" >> $GITHUB_ENV
-    - name: Wait until CloudFront invalidation completed
-      run: aws cloudfront wait invalidation-completed --distribution-id ${{ secrets.AWS_CLOUDFRONT_DISTRIBUTION_ID }} --id ${{ env.CLOUDFRONT_INVALIDATION_ID }}
+  call-deploy-to-production:
+    uses: balassy/resume-frontend/.github/workflows/deploy-to-environment.yml@main
+    secrets: inherit
+    needs: call-deploy-to-staging
+    with:
+      target_environment: Production
