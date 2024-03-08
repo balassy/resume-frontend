@@ -20,7 +20,7 @@ permissions:
 
 jobs:
   deploy:
-    name: ${{ inputs.target_environment }} by @${{ github.actor }}
+    name: ${{ inputs.target_environment }}
     runs-on: ubuntu-latest
     environment: ${{ inputs.target_environment }}
 
