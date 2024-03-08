@@ -16,7 +16,7 @@
     "test:ui": "cypress run --config-file cypress.config.local.ts"
   },
   "dependencies": {
-    "astro": "^3.6.0"
+    "astro": "^4.4.15"
   },
   "devDependencies": {
     "cypress": "^13.6.0",
