@@ -14,9 +14,9 @@ jobs:
 
     steps:
     - name: Git checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
     - name: Install Node.js
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
       with:
         node-version: '20.x'
         cache: 'npm'
@@ -42,19 +42,19 @@ jobs:
         wait-on: 'http://ip6-localhost:4321'
         config-file: cypress.config.local.ts
     - name: Archive build artifacts
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: Build output
         path: dist/
     - name: Archive local UI test screenshot artifacts
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       if: ${{ failure() }}
       with:
         name: Local UI test screenshots
         path: cypress/screenshots
         if-no-files-found: ignore
     - name: Archive local UI test video artifacts
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       if: ${{ failure() }}
       with:
         name: Local UI test videos
