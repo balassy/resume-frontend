@@ -1,8 +1,6 @@
 name: Continuous Integration - Deploy to Environment
 
 on:
-  push:
-    branches: [ "main" ]
   workflow_call:
     inputs:
       target_environment:
