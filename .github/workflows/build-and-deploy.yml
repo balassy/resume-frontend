@@ -15,18 +15,20 @@ permissions:
   contents: read    # This is required for actions/checkout for AWS Actions
 
 jobs:
-  call-build:
+  Build:
     uses: balassy/resume-frontend/.github/workflows/build.yml@main
     secrets: inherit
 
   call-deploy-to-staging:
+    name: Deploy
     uses: balassy/resume-frontend/.github/workflows/deploy-to-environment.yml@main
     secrets: inherit
-    needs: call-build
+    needs: Build
     with:
       target_environment: Staging
 
   call-deploy-to-production:
+    name: Deploy
     uses: balassy/resume-frontend/.github/workflows/deploy-to-environment.yml@main
     secrets: inherit
     needs: call-deploy-to-staging
