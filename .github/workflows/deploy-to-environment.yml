@@ -33,7 +33,7 @@ jobs:
       run: ls -R
       working-directory: dist
     - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v2
+      uses: aws-actions/configure-aws-credentials@v4
       with:
         role-to-assume: ${{ secrets.AWS_UPLOAD_ROLE_ARN }}
         role-session-name: ResumeUploadSession
