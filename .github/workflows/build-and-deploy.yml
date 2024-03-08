@@ -1,4 +1,4 @@
-name: Continuous Integration - Deploy
+name: Continuous Integration - Build and Deploy
 
 on:
   push:
