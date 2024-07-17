@@ -108,7 +108,32 @@ const projects = (await getCollection('work'))
               ].map((cert) => (
 								<li class="mention-card">
                   <figure>
-                    <img src={cert.src} />
+                    <img src={cert.src} alt={cert.caption} />
+									  <figcaption>{cert.caption}</figcaption>
+                  </figure>
+								</li>
+							))
+						}
+					</Grid>
+				</div>
+      </section>
+
+      <section class="section with-background bg-variant">
+        <header class="section-header stack">
+          <h3>Community Recognitions</h3>
+        </header>
+        
+        <div class="gallery">
+          <Grid variant="small">
+						{
+							[ 
+                { src: '/assets/certs/ms-regional-director.png', caption: 'Microsoft Regional Director (MS RD) - Alumni' },
+                { src: '/assets/certs/mvp-alumni.png', caption: 'Microsoft Most Valuable Professional (MVP) - Alumni' },
+                { src: '/assets/certs/asp-insider.gif', caption: 'Microsoft ASP Insider' },
+              ].map((cert) => (
+								<li class="mention-card">
+                  <figure>
+                    <img src={cert.src} alt={cert.caption} />
 									  <figcaption>{cert.caption}</figcaption>
                   </figure>
 								</li>
